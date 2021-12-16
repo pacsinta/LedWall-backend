@@ -1,0 +1,24 @@
+{
+  "name": "ledwall-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pacsinta/LedWall-backend.git"
+  },
+  "author": "Patrik Csikós",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pacsinta/LedWall-backend/issues"
+  },
+  "homepage": "https://github.com/pacsinta/LedWall-backend#readme",
+  "dependencies": {
+    "cluster": "^0.7.7",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0"
+  }
+}
