@@ -7,10 +7,14 @@ const routes = require('./routes');
 function run(){
     const app = express();
 
-    app.use(helmet);
-    app.use(express.json);
+    app.use(helmet());
+    app.use(express.json());
 
-    app.use(routes);
+    app.use('/', routes);
+
+    app.get('/', (req, res)=>{
+        res.send("ok");
+    });
 
     const httpPORT = 5000;
 
