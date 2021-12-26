@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/pacsinta/LedWall-backend#readme",
   "dependencies": {
-    "cluster": "^0.7.7",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "helmet": "^4.6.0"
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1"
   }
 }
