@@ -1,34 +1,6 @@
 const express = require('Express');
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-
-
-//load private key
-dotenv.config();
-
-
-//generate new jwt token
-function generateAccessToken(username) {
-    return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
-}
-
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-  
-    if (token == null) return res.sendStatus(401)
-  
-    jwt.verify(token, process.env.TOKEN_SECRET as string, (err: any, user: any) => {
-      console.log(err)
-  
-      if (err) return res.sendStatus(403)
-  
-      req.user = user
-  
-      next()
-    })
-}
-
+const { sendStatus } = require('express/lib/response');
+require('dotenv').config();
 
 var router = express.Router();
 
@@ -38,13 +10,21 @@ router.get("/updated", (req, res)=>{
     res.json({updated: updated});
 });
 
-router.put("/updated", authenticateToken, (req, res)=>{
-    updated = req.body.updated;
-    res.sendStatus(200);
+
+//only needed for the esp32
+router.put("/updated", (req, res)=>{
+    try{
+        pwd = req.body.pwd;
+        if(pwd == process.env.PWD){
+            updated = false;
+            res.sendStatus(200);
+        }else{
+            res.sendStatus(403);
+        }
+    }catch{
+        res.sendStatus(400);
+    }
 });
-
-
-
 
 //Mode routes
 var curMode = 0;
@@ -56,22 +36,41 @@ router.get("/mode", (req, res)=>{
     res.json({mode: curMode});
 });
 
-router.put("/mode", authenticateToken, (req, res) =>{
-    curMode = res.body.mode;
-    res.sendStatus(200);
+router.put("/mode", (req, res) =>{
+    try{
+        pwd = req.body.pwd;
+        if(pwd == process.env.PWD){
+            curMode = res.body.mode;
+            updated = true;
+            res.sendStatus(200);
+        }else{
+            res.sendStatus(403);
+        }
+    }catch{
+        res.sendStatus(400);
+    }
 });
 
 
 //Display image routes
 var image = [8][10];
 router.get("/image", (req, res) =>{
-    var 
+    
 });
-router.put("/image", authenticateToken, (req, res) =>{
-    updated = true;
-    const rawData = req.body.image;
+router.put("/image", (req, res) =>{
+    try{
+        pwd = req.body.pwd;
+        if(pwd == process.env.PWD){
+            updated = true;
+            const rawData = req.body.image;
 
-    res.sendStatus(200);
+            res.sendStatus(200);
+        }else{
+            res.sendStatus(403);
+        }
+    }catch{
+        res.sendStatus(400);
+    }
 })
 
 
@@ -85,10 +84,19 @@ router.get("/text", (req, res) =>{
 
 //change the displayed text
 router.put("/text", (req, res) =>{
-    updated = true;
-    text = req.body.text;
-
-    res.sendStatus(200);
+    try{
+        pwd = req.body.pwd;
+        console.log(pwd);
+        if(pwd == process.env.PWD){
+            updated = true;
+            text = req.body.text;
+            res.sendStatus(200);
+        }else{
+            res.sendStatus(403);
+        }
+    }catch{
+        res.sendStatus(400);
+    } 
 });
 
 
