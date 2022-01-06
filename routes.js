@@ -86,7 +86,6 @@ router.get("/text", (req, res) =>{
 router.put("/text", (req, res) =>{
     try{
         pwd = req.body.pwd;
-        console.log(pwd);
         if(pwd == process.env.PWD){
             updated = true;
             text = req.body.text;
