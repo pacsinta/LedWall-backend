@@ -1,4 +1,4 @@
-const express = require('Express');
+const express = require('express');
 const { sendStatus } = require('express/lib/response');
 require('dotenv').config();
 

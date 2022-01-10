@@ -1,11 +1,11 @@
 'use strict';
 
-const httpPORT = 5000;
+const httpPORT = 4000;
 
 
 
-const express = require('Express');
-const helmet = require('Helmet');
+const express = require('express');
+const helmet = require('helmet');
 const routes = require('./routes');
 
 
@@ -21,4 +21,5 @@ app.use(routes);
 
 app.listen(httpPORT, () => {
     console.log(`LedWall-backend is running on http on worker ${process.pid}`);
+    console.log(`Port: ${httpPORT}`);
 });
