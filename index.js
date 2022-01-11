@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(routes);
 
 
-//HTTP
+//HTTP  (only for local network)
 const httpServer = http.createServer(app);
 httpServer.listen(httpPORT, () => {
 	console.log('HTTP Server running on port 80');
